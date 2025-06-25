@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPSSSC PET 2025 Full Mock Test (100 Questions)</title>
+    <style>
+        /* --- Google Fonts & Basic Styles --- */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Teko:wght@600&display=swap');
+
+        :root {
+            --insta-gradient: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            --primary-color: #d62976;
+            --secondary-color: #2c3e50;
+            --light-color: #ffffff;
+            --bg-color: #fafafa;
+            --gray-color: #dbdbdb;
+            --dark-gray-color: #333;
+            --correct-color: #2ecc71;
+            --incorrect-color: #e74c3c;
+            --timer-color: #3498db;
+            --shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            --border-radius: 15px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--dark-gray-color);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .quiz-wrapper {
+            width: 100%;
+            max-width: 800px;
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        
+        header {
+            background: var(--insta-gradient);
+            padding: 25px;
+            text-align: center;
+        }
+
+        .main-title {
+            font-family: 'Teko', sans-serif;
+            font-weight: 600;
+            font-size: 3rem;
+            color: var(--light-color);
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+            letter-spacing: 1px;
+        }
+
+        main {
+            padding: 25px 30px 40px 30px;
+        }
+
+        /* --- Exam Info Section --- */
+        #exam-info-container {
+            padding: 10px;
+        }
+        #exam-info-container h2 {
+            font-family: 'Teko', sans-serif;
+            color: var(--secondary-color);
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+        #exam-info-container ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin-bottom: 15px;
+        }
+        #exam-info-container li {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--primary-color);
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+        }
+        #exam-info-container li strong {
+            color: var(--secondary-color);
+        }
+        .start-quiz-btn-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        #start-quiz-btn {
+            background: var(--insta-gradient);
+            border: none;
+            color: var(--light-color);
+            padding: 15px 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 50px;
+        }
+        #start-quiz-btn:hover { transform: scale(1.05); }
+
+        /* --- Quiz Content --- */
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 20px;
+        }
+
+        .progress-bar-container {
+            flex-grow: 1;
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        #progress-bar {
+            width: 0%;
+            height: 100%;
+            background: var(--insta-gradient);
+            border-radius: 10px;
+            transition: width 0.4s ease-in-out;
+        }
+
+        #timer-container {
+            font-weight: 600;
+            color: var(--secondary-color);
+            background-color: #eef7ff;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        #timer-container.warning {
+            background-color: #fff0f0;
+            color: var(--incorrect-color);
+        }
+        #question-counter {
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #888;
+            margin-bottom: 15px;
+        }
+        #quiz-container { min-height: 350px; }
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .options-container { display: flex; flex-direction: column; gap: 12px; }
+        .option-btn {
+            display: block; width: 100%; background-color: transparent;
+            border: 2px solid var(--gray-color); border-radius: 10px;
+            padding: 15px; cursor: pointer; transition: all 0.2s ease;
+            font-size: 1rem; font-family: 'Poppins', sans-serif;
+            text-align: left; color: var(--dark-gray-color);
+        }
+        .option-btn:not(:disabled):hover { border-color: var(--primary-color); background-color: #fceef5; }
+        .option-btn.correct { background-color: #eafaf1; border-color: var(--correct-color); color: #229a54; font-weight: 600; }
+        .option-btn.incorrect { background-color: #fbe9e7; border-color: var(--incorrect-color); color: #c93a28; font-weight: 600; }
+        .option-btn:disabled { cursor: not-allowed; }
+        .quiz-navigation { text-align: center; margin-top: 30px; height: 50px; }
+        #next-btn {
+            background: var(--primary-color); border: none; color: var(--light-color);
+            padding: 12px 45px; font-size: 1.1rem; font-weight: 600;
+            cursor: pointer; transition: all 0.3s ease; border-radius: 50px;
+            box-shadow: 0 4px 12px rgba(214, 41, 118, 0.3);
+        }
+        #next-btn:hover { transform: scale(1.05); }
+
+        /* --- Results Screen --- */
+        #results-container { text-align: center; padding: 40px; }
+        #results-container h2 {
+            font-family: 'Teko', sans-serif; font-size: 2.8rem;
+            color: var(--secondary-color); margin-bottom: 15px;
+        }
+        #score-text { font-size: 1.6rem; font-weight: 600; color: var(--primary-color); margin-bottom: 30px; }
+        #retry-btn {
+            background: var(--secondary-color); border: none; color: var(--light-color);
+            padding: 12px 35px; font-size: 1.1rem; font-weight: 500;
+            cursor: pointer; transition: all 0.3s ease; border-radius: 50px;
+        }
+        #retry-btn:hover { opacity: 0.9; }
+        .hidden { display: none !important; }
+
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .quiz-wrapper { border-radius: 0; min-height: 100vh; }
+            main { padding: 20px; }
+            .main-title { font-size: 2.0rem; }
+            .question-text { font-size: 1.15rem; }
+            .quiz-header { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-wrapper">
+        <header>
+            <h1 class="main-title">PET 2025 MOCK TEST</h1>
+        </header>
+        <main>
+            <div id="exam-info-container">
+                <h2>परीक्षा पैटर्न और पाठ्यक्रम</h2>
+                <ul>
+                    <li><strong>कुल प्रश्न:</strong> 100</li>
+                    <li><strong>कुल अंक:</strong> 100</li>
+                    <li><strong>परीक्षा अवधि:</strong> 2 घंटे (120 मिनट)</li>
+                    <li><strong>अंकन योजना:</strong> सही उत्तर के लिए +1, गलत उत्तर के लिए -0.25</li>
+                    <li><strong>प्रश्न प्रकार:</strong> वस्तुनिष्ठ (MCQ)</li>
+                </ul>
+                <div class="start-quiz-btn-container">
+                     <button id="start-quiz-btn">मॉक टेस्ट शुरू करें</button>
+                </div>
+            </div>
+
+            <div id="quiz-content" class="hidden">
+                <div class="quiz-header">
+                     <div class="progress-bar-container">
+                        <div id="progress-bar"></div>
+                    </div>
+                    <div id="timer-container">
+                        <span id="timer">02:00:00</span>
+                    </div>
+                </div>
+                <p class="question-counter" id="question-counter"></p>
+                <div id="quiz-container">
+                     <p class="question-text" id="question-text"></p>
+                     <div class="options-container" id="options-container"></div>
+                </div>
+                <div class="quiz-navigation">
+                    <button id="next-btn" class="hidden">अगला प्रश्न</button>
+                </div>
+            </div>
+
+            <div id="results-container" class="hidden">
+                <h2>टेस्ट पूरा हुआ!</h2>
+                <p id="score-text">Your score will appear here.</p>
+                <button id="retry-btn">पुनः प्रयास करें</button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const elements = {
+            examInfoContainer: document.getElementById('exam-info-container'),
+            startQuizBtn: document.getElementById('start-quiz-btn'),
+            quizContent: document.getElementById('quiz-content'),
+            questionText: document.getElementById('question-text'),
+            optionsContainer: document.getElementById('options-container'),
+            nextBtn: document.getElementById('next-btn'),
+            resultsContainer: document.getElementById('results-container'),
+            retryBtn: document.getElementById('retry-btn'),
+            scoreText: document.getElementById('score-text'),
+            progressBar: document.getElementById('progress-bar'),
+            questionCounter: document.getElementById('question-counter'),
+            timer: document.getElementById('timer'),
+            timerContainer: document.getElementById('timer-container'),
+        };
+
+        const quizQuestions = [
+            // 1. Indian History
+            { subject: "Indian History", question: "सिंधु घाटी सभ्यता में, घोड़े की अस्थियों के अवशेष कहाँ मिले हैं?", options: ["सुरकोटदा", "कालीबंगा", "लोथल", "रोपड़"], answer: "सुरकोटदा" },
+            { subject: "Indian History", question: "किसे 'लाइट ऑफ एशिया' (एशिया की ज्योति) के रूप में भी जाना जाता है?", options: ["महावीर स्वामी", "गौतम बुद्ध", "सम्राट अशोक", "चंद्रगुप्त मौर्य"], answer: "गौतम बुद्ध" },
+            { subject: "Indian History", question: "मौर्यकालीन भारत के विवरण वाली 'इंडिका' के लेखक कौन थे?", options: ["फाह्यान", "ह्वेन त्सांग", "मेगस्थनीज", "इनमें से कोई नहीं"], answer: "मेगस्थनीज" },
+            { subject: "Indian History", question: "चरक संहिता किससे संबंधित है?", options: ["राजनीति", "चिकित्सा", "वास्तुकला", "गणित"], answer: "चिकित्सा" },
+            { subject: "Indian History", question: "खजुराहो समूह के प्रसिद्ध स्मारक किस राजवंश के दौरान बनवाए गए थे?", options: ["चंदेल", "चालुक्य", "सोलंकी", "प्रतिहार"], answer: "चंदेल" },
+            
+            // 6. Indian National Movement
+            { subject: "Indian National Movement", question: "1857 के सिपाही विद्रोह के दौरान भारत का गवर्नर जनरल कौन था?", options: ["लॉर्ड डलहौजी", "लॉर्ड कैनिंग", "लॉर्ड मेयो", "लॉर्ड रिपन"], answer: "लॉर्ड कैनिंग" },
+            { subject: "Indian National Movement", question: "भारतीय राष्ट्रीय कांग्रेस द्वारा किस अधिवेशन में ऐतिहासिक 'पूर्ण स्वराज्य' का प्रस्ताव पारित किया गया?", options: ["बंबई", "लाहौर", "कराची", "लखनऊ"], answer: "लाहौर" },
+            { subject: "Indian National Movement", question: "बंगाल का विभाजन (1905) किसके द्वारा किया गया था?", options: ["लॉर्ड कर्जन", "लॉर्ड मिंटो", "लॉर्ड चेम्सफोर्ड", "लॉर्ड इरविन"], answer: "लॉर्ड कर्जन" },
+            { subject: "Indian National Movement", question: "गांधीजी ने भारत में अपनी राजनीतिक गतिविधियों का प्रारंभ कहाँ से किया?", options: ["दांडी", "खेड़ा", "साबरमती", "चंपारण"], answer: "चंपारण" },
+            { subject: "Indian National Movement", question: "फॉरवर्ड ब्लॉक की स्थापना निम्नलिखित में से किसके द्वारा की गई थी?", options: ["महात्मा गांधी", "सरदार पटेल", "सुभाष चंद्र बोस", "जवाहरलाल नेहरू"], answer: "सुभाष चंद्र बोस" },
+            
+            // 11. Geography
+            { subject: "Geography", question: "नागार्जुन सागर बांध किस नदी पर बना है?", options: ["गोदावरी", "कृष्णा", "गंगा", "कावेरी"], answer: "कृष्णा" },
+            { subject: "Geography", question: "माउंट एवरेस्ट पर प्रथम बार चढ़ाई किस वर्ष की गई?", options: ["1951", "1953", "1955", "1958"], answer: "1953" },
+            { subject: "Geography", question: "भरतपुर में स्थित पक्षी अभयारण्य/राष्ट्रीय उद्यान का नाम क्या है?", options: ["भैंसरोड़गढ़ अभयारण्य", "दर्रा अभयारण्य", "केवलादेव घाना राष्ट्रीय उद्यान", "घाटप्रभा अभयारण्य"], answer: "केवलादेव घाना राष्ट्रीय उद्यान" },
+            { subject: "Geography", question: "भारत की मानक समय रेखा (IST) कौन सी है?", options: ["82.5° पूर्वी देशांतर", "84.5° पूर्वी देशांतर", "86.5° पूर्वी देशांतर", "88.5° पूर्वी देशांतर"], answer: "82.5° पूर्वी देशांतर" },
+            { subject: "Geography", question: "निम्नलिखित में से कौन जनसंख्या वितरण को प्रभावित करने वाला आर्थिक कारक नहीं है?", options: ["शहरीकरण", "खनिज", "औद्योगीकरण", "पानी की उपलब्धता"], answer: "पानी की उपलब्धता" },
+            { subject: "Geography", question: "शिफ्टिंग खेती को उत्तर-पूर्वी भारत में किस नाम से जाना जाता है?", options: ["झूम", "बेवर", "पोडू", "कुमारी"], answer: "झूम" },
+            { subject: "Geography", question: "काजीरंगा राष्ट्रीय उद्यान स्थित है:", options: ["मध्य प्रदेश", "असम", "पश्चिम बंगाल", "केरल"], answer: "असम" },
+            { subject: "Geography", question: "कौन सी हिमालयी नदी तंत्र की नदियाँ हैं?", options: ["कावेरी, गोदावरी", "गंगा, ब्रह्मपुत्र", "कृष्णा, महानदी", "नर्मदा, तापी"], answer: "गंगा, ब्रह्मपुत्र" },
+            { subject: "Geography", question: "सौरमंडल का सबसे बड़ा ग्रह कौन सा है?", options: ["शनि", "बृहस्पति", "मंगल", "पृथ्वी"], answer: "बृहस्पति" },
+            { subject: "Geography", question: "सागौन के जंगल भारत के निम्नलिखित में से किस राज्य में पाए जाते हैं?", options: ["हिमाचल प्रदेश", "मध्य प्रदेश", "पंजाब", "झारखंड"], answer: "मध्य प्रदेश" },
+
+            // 21. Indian Economy
+            { subject: "Indian Economy", question: "बैंक दर का अर्थ है:", options: ["साहूकारों द्वारा ली जाने वाली ब्याज दर", "अनुसूचित बैंकों द्वारा ली जाने वाली ब्याज दर", "बैंकिंग संस्थान के लाभ की दर", "देश के केंद्रीय बैंक द्वारा ली जाने वाली आधिकारिक ब्याज दर"], answer: "देश के केंद्रीय बैंक द्वारा ली जाने वाली आधिकारिक ब्याज दर" },
+            { subject: "Indian Economy", question: "भारत में आर्थिक सुधार 1991 के दौरान प्रधानमंत्री कौन थे?", options: ["मनमोहन सिंह", "पी. वी. नरसिम्हा राव", "अटल बिहारी वाजपेयी", "राजीव गांधी"], answer: "पी. वी. नरसिम्हा राव" },
+            { subject: "Indian Economy", question: "भारत में श्वेत क्रांति के जनक के रूप में कौन जाना जाता है?", options: ["एम. एस. स्वामीनाथन", "डॉ. वर्गीज कुरियन", "बलवंत राय मेहता", "नॉर्मन एडबर्ग"], answer: "डॉ. वर्गीज कुरियन" },
+            { subject: "Indian Economy", question: "भारत में 'हरित क्रांति' का जनक किसे माना जाता है?", options: ["एम. एस. स्वामीनाथन", "राज कृष्णा", "सी. रंगराजन", "जे. सी. कुमारप्पा"], answer: "एम. एस. स्वामीनाथन" },
+            { subject: "Indian Economy", question: "वस्तु एवं सेवा कर (GST) भारत में कब लागू किया गया?", options: ["1 अप्रैल 2017", "1 जुलाई 2017", "1 जनवरी 2017", "1 सितंबर 2017"], answer: "1 जुलाई 2017" },
+            { subject: "Indian Economy", question: "भारतीय रिजर्व बैंक (RBI) का मुख्यालय कहाँ है?", options: ["दिल्ली", "मुंबई", "चेन्नई", "कोलकाता"], answer: "मुंबई" },
+            { subject: "Indian Economy", question: "भारत की राष्ट्रीय आय का आकलन करने वाली संस्था है:", options: ["भारतीय रिजर्व बैंक", "नीति आयोग", "वित्त मंत्रालय", "केंद्रीय सांख्यिकी संगठन"], answer: "केंद्रीय सांख्यिकी संगठन" },
+            { subject: "Indian Economy", question: "सेवा क्षेत्र का दूसरा नाम क्या है?", options: ["प्राथमिक", "द्वितीयक", "तृतीयक", "कृषि"], answer: "तृतीयक" },
+            { subject: "Indian Economy", question: "नीति (NITI) आयोग के पदेन अध्यक्ष कौन होते हैं?", options: ["राष्ट्रपति", "प्रधानमंत्री", "वित्त मंत्री", "लोकसभा अध्यक्ष"], answer: "प्रधानमंत्री" },
+            { subject: "Indian Economy", question: "100 रुपये के नोट पर किसके हस्ताक्षर होते हैं?", options: ["वित्त सचिव", "प्रधानमंत्री", "वित्त मंत्री", "आरबीआई गवर्नर"], answer: "आरबीआई गवर्नर" },
+
+            // 31. Indian Constitution & Public Administration
+            { subject: "Indian Constitution", question: "भारत के संविधान में 'जन स्वास्थ्य एवं स्वच्छता' किसमें शामिल है?", options: ["राज्य सूची में", "समवर्ती सूची में", "संघ सूची में", "इनमें से कोई नहीं"], answer: "राज्य सूची में" },
+            { subject: "Indian Constitution", question: "शिक्षा का अधिकार अब एक मौलिक अधिकार है, जो संबंधित है:", options: ["अनुच्छेद 21A से", "अनुच्छेद 19 से", "अनुच्छेद 29 और 30 से", "अनुच्छेद 14 से"], answer: "अनुच्छेद 21A से" },
+            { subject: "Indian Constitution", question: "निम्न में से किसने संविधान सभा में 'उद्देश्य प्रस्ताव' रखा?", options: ["जवाहरलाल नेहरू", "महात्मा गांधी", "बी. आर. अंबेडकर", "बी. एन. राव"], answer: "जवाहरलाल नेहरू" },
+            { subject: "Indian Constitution", question: "भारतीय संविधान के किस अनुच्छेद में अल्पसंख्यकों के हित निहित हैं?", options: ["अनुच्छेद 21", "अनुच्छेद 24", "अनुच्छेद 29", "इनमें से कोई नहीं"], answer: "अनुच्छेद 29" },
+            { subject: "Indian Constitution", question: "भारत के संविधान में इनमें से क्या राज्य सूची में सम्मिलित नहीं है?", options: ["पुलिस", "कानून और व्यवस्था", "जेल", "दंड प्रक्रिया संहिता"], answer: "दंड प्रक्रिया संहिता" },
+            { subject: "Indian Constitution", question: "भारत में पंचायती राज व्यवस्था किसके अंतर्गत रखी गई है?", options: ["मौलिक अधिकार", "मौलिक कर्तव्य", "राज्य नीति के निदेशक तत्व", "इनमें से कोई नहीं"], answer: "राज्य नीति के निदेशक तत्व" },
+            { subject: "Indian Constitution", question: "भारतीय संविधान की आत्मा किसे कहा गया है?", options: ["मौलिक अधिकार", "राज्य के नीति निर्देशक तत्व", "प्रस्तावना", "संवैधानिक उपचारों का अधिकार"], answer: "प्रस्तावना" },
+            { subject: "Indian Constitution", question: "भारत का राष्ट्रपति अपना त्यागपत्र किसको संबोधित करता है?", options: ["उपराष्ट्रपति", "प्रधानमंत्री", "भारत के मुख्य न्यायाधीश", "लोकसभा अध्यक्ष"], answer: "उपराष्ट्रपति" },
+            { subject: "Indian Constitution", question: "जिला प्रशासन का मुखिया होता है:", options: ["पुलिस अधीक्षक", "जिलाधिकारी", "मुख्य विकास अधिकारी", "जिला जज"], answer: "जिलाधिकारी" },
+            { subject: "Indian Constitution", question: "भारतीय संसद के कितने अंग हैं?", options: ["दो", "तीन", "चार", "एक"], answer: "तीन" },
+
+            // 41. General Science
+            { subject: "General Science", question: "ठोस चालक में धारा वाहक होते हैं:", options: ["प्रोटॉन", "न्यूट्रॉन", "मुक्त इलेक्ट्रॉन", "इनमें से कोई नहीं"], answer: "मुक्त इलेक्ट्रॉन" },
+            { subject: "General Science", question: "प्रकाश वर्ष किसके मापन की इकाई है?", options: ["एक वर्ष में मापी गई रॉकेट की गति", "एक वर्ष में निर्वात में ध्वनि द्वारा चली गई दूरी", "एक वर्ष में निर्वात में प्रकाश द्वारा चली गई दूरी", "हवाई जहाज की गति"], answer: "एक वर्ष में निर्वात में प्रकाश द्वारा चली गई दूरी" },
+            { subject: "General Science", question: "ब्लीचिंग पाउडर का रासायनिक नाम यह भी है:", options: ["कैल्शियम सल्फेट (CaSO4)", "कैल्शियम ऑक्सीक्लोराइड (CaOCl2)", "सोडियम बाइकार्बोनेट (NaHCO3)", "सोडियम क्लोराइड (NaCl)"], answer: "कैल्शियम ऑक्सीक्लोराइड (CaOCl2)" },
+            { subject: "General Science", question: "संतरे में बहुतायत में होता है:", options: ["विटामिन सी", "विटामिन ए", "विटामिन बी", "इनमें से कोई नहीं"], answer: "विटामिन सी" },
+            { subject: "General Science", question: "पेनिसिलिन, एक एंटीबायोटिक, किससे प्राप्त किया जाता है?", options: ["जीवाणु (Bacteria)", "कवक (Fungus)", "विषाणु (Virus)", "शैवाल (Algae)"], answer: "कवक (Fungus)" },
+            { subject: "General Science", question: "एक हॉर्स पावर लगभग कितने वॉट के बराबर होता है?", options: ["746 वॉट", "756 वॉट", "766 वॉट", "776 वॉट"], answer: "746 वॉट" },
+            { subject: "General Science", question: "मानव शरीर में सबसे छोटी हड्डी कौन सी है?", options: ["फीमर", "स्टेपीज", "टिबिया", "ह्यूमरस"], answer: "स्टेपीज" },
+            { subject: "General Science", question: "कौन सा अम्ल पेट में जीवाणुओं का नाश करता है?", options: ["सल्फ्यूरिक एसिड", "हाइड्रोक्लोरिक एसिड", "नाइट्रिक एसिड", "एसिटिक एसिड"], answer: "हाइड्रोक्लोरिक एसिड" },
+            { subject: "General Science", question: "पौधे का कौन सा भाग श्वसन करता है?", options: ["जड़", "पत्ती", "तना", "ये सभी"], answer: "पत्ती" },
+            { subject: "General Science", question: "फ्यूज का तार किससे बना होता है?", options: ["टिन और तांबे की मिश्रधातु", "टिन और सीसे की मिश्रधातु", "टिन और एल्यूमीनियम की मिश्रधातु", "निकेल और क्रोमियम की मिश्रधातु"], answer: "टिन और सीसे की मिश्रधातु" },
+
+            // 51. Elementary Arithmetic
+            { subject: "Arithmetic", question: "(√5 - √3) / (√5 + √3) किसके बराबर है?", options: ["4 - √15", "4 + √15", "√15 - 4", "1"], answer: "4 - √15" },
+            { subject: "Arithmetic", question: "एक शहर की जनसंख्या में 4% की वार्षिक वृद्धि होती है परंतु स्थानांतरण के कारण 1/2% वार्षिक घट जाती है। तीन वर्षों में वृद्धि का प्रतिशत क्या होगा?", options: ["9.8%", "10.5%", "10.8%", "11.2%"], answer: "10.8%" },
+            { subject: "Arithmetic", question: "13 परिणामों का औसत 68 है। पहले सात का औसत 63 है और आखिरी सात का औसत 70 है। सातवाँ परिणाम क्या है?", options: ["47", "65.5", "64", "70"], answer: "47" },
+            { subject: "Arithmetic", question: "0.0081 का वर्गमूल क्या है?", options: ["0.9", "0.09", "0.009", "0.0009"], answer: "0.09" },
+            { subject: "Arithmetic", question: "यदि A की आय B से 20% अधिक है, तो B की आय A से कितने प्रतिशत कम है?", options: ["20%", "25%", "16.66%", "15%"], answer: "16.66%" },
+            { subject: "Arithmetic", question: "37 1/2 में कुल कितने 1/8 हैं?", options: ["300", "400", "500", "250"], answer: "300" },
+            { subject: "Arithmetic", question: "885 x 885 x 885 + 115 x 115 x 115 / (885x885 + 115x115 - 885x115) का मान क्या है?", options: ["770", "1000", "1", "885"], answer: "1000" },
+            { subject: "Arithmetic", question: "एक टीवी सेट का मूल्य 30% घटाने पर उसकी बिक्री 20% बढ़ गई। दुकानदार की आय पर उसका क्या प्रभाव पड़ा?", options: ["10% बढ़ी", "10% घटी", "16% घटी", "16% बढ़ी"], answer: "16% घटी" },
+            { subject: "Arithmetic", question: "चार खिलाड़ियों की औसत उम्र 18.5 वर्ष है। अगर कोच की उम्र भी इसमें शामिल की जाए, तो औसत उम्र 20% बढ़ जाती है। कोच की उम्र क्या है?", options: ["37 वर्ष", "34 वर्ष", "28 वर्ष", "31 वर्ष"], answer: "37 वर्ष" },
+            { subject: "Arithmetic", question: "308, 125, 45, 120 और 102 का औसत क्या है?", options: ["140", "150", "160", "120"], answer: "140" },
+            
+            // 61. General Hindi
+            { subject: "General Hindi", question: "'एकल' का विलोम शब्द है:", options: ["बहुल", "पर्याप्त", "उपयुक्त", "अकेला"], answer: "बहुल" },
+            { subject: "General Hindi", question: "'दर्प' का पर्यायवाची कौन-सा है?", options: ["तिरस्कार", "अहंकार", "व्यथा", "स्वाभिमान"], answer: "अहंकार" },
+            { subject: "General Hindi", question: "'मन को हरने वाला' वाक्य के लिए नीचे दिए गए विकल्प में से एक शब्द चुनिए।", options: ["मर्मांतक", "मनोहर", "मदमाती", "मदमस्त"], answer: "मनोहर" },
+            { subject: "General Hindi", question: "'गागर में सागर भरना' मुहावरे का अर्थ लिखिए।", options: ["दोहों की रचना करना", "थोड़े में बहुत कहना", "बहुत बोलना", "कम बोलना"], answer: "थोड़े में बहुत कहना" },
+            { subject: "General Hindi", question: "'शुद्ध वर्तनी' का चयन कीजिए।", options: ["महत्वाकांक्षा", "महत्वाकांछा", "महत्वकांक्षा", "महत्वकांछा"], answer: "महत्वाकांक्षा" },
+            { subject: "General Hindi", question: "तीक्ष्ण का विलोम शब्द है:", options: ["तीव्र", "तृष्णा", "त्यागी", "कुंठित"], answer: "कुंठित" },
+            { subject: "General Hindi", question: "'गजवदन' का पर्यायवाची है:", options: ["गर्जन", "मेघनाद", "गणपति", "विष्णु"], answer: "गणपति" },
+            { subject: "General Hindi", question: "'काँटों से भरा हुआ' वाक्य के लिए एक शब्द है:", options: ["कंटक", "कंटकाकीर्ण", "कुचैला", "विकर्ण"], answer: "कंटकाकीर्ण" },
+            { subject: "General Hindi", question: "'दूध का दूध और पानी का पानी करना' मुहावरे का अर्थ है:", options: ["दुग्ध इंस्पेक्टर होना", "मिल-जुल कर रहना", "पक्षपातपूर्ण निर्णय करना", "उचित निर्णय करना"], answer: "उचित निर्णय करना" },
+            { subject: "General Hindi", question: "'पयस्' का संधि-विच्छेद क्या होगा?", options: ["पय + स", "पयः + द", "पय + द", "पयो + द"], answer: "पयः + द" },
+
+            // 71. General English
+            { subject: "General English", question: "Give synonym for the word 'Famous'.", options: ["Poor", "Popular", "Steady", "Awful"], answer: "Popular" },
+            { subject: "General English", question: "Give antonym for the word 'Transparent'.", options: ["Obvious", "Limpid", "Opaque", "Clear"], answer: "Opaque" },
+            { subject: "General English", question: "A person who loves mankind is called:", options: ["Philanthropist", "Misanthrope", "Optometrist", "Truant"], answer: "Philanthropist" },
+            { subject: "General English", question: "Which of the following is correctly spelt?", options: ["Inteligence", "Intelligence", "Intilligence", "Intellegence"], answer: "Intelligence" },
+            { subject: "General English", question: "The captain with all his players ___ present in the ground.", options: ["were", "was", "have", "are"], answer: "was" },
+            
+            // 76. Reasoning
+            { subject: "Reasoning", question: "दिए गए विकल्पों में से संबंधित शब्द का चयन कीजिए: कुत्ता : रेबीज :: मच्छर : ?", options: ["प्लेग", "मृत्यु", "मलेरिया", "डासना"], answer: "मलेरिया" },
+            { subject: "Reasoning", question: "उस शब्द का चयन कीजिए जो समूह के बाकी शब्दों से मेल नहीं रखता।", options: ["दही", "मक्खन", "तेल", "पनीर"], answer: "तेल" },
+            { subject: "Reasoning", question: "यदि किसी कूट भाषा में COMPUTER को PMOCRETU लिखा जाता है, तो उसी कूट भाषा में ADVANTAGES को क्या लिखा जाएगा?", options: ["SEGATNAVDA", "SEGATNAVAD", "SEGTANAVAD", "SEGATANVDA"], answer: "SEGATNAVDA" },
+            { subject: "Reasoning", question: "एक आदमी ने एक महिला से कहा, 'तुम्हारी माँ के पति की बहन मेरी बुआ है।' वह महिला उस आदमी से किस प्रकार संबंधित है?", options: ["पुत्री", "पौत्री", "बहन", "माँ"], answer: "बहन" },
+            { subject: "Reasoning", question: "यदि 18 फरवरी 2005 को शुक्रवार है, तो 18 फरवरी 2007 को कौन-सा दिन होगा?", options: ["रविवार", "शनिवार", "सोमवार", "मंगलवार"], answer: "रविवार" },
+            { subject: "Reasoning", question: "पक्षी विज्ञानी : पक्षी :: नृविज्ञानी : ?", options: ["पौधे", "पशु", "मानव", "पर्यावरण"], answer: "मानव" },
+            { subject: "Reasoning", question: "विषम को चुनें: 3, 5, 11, 14, 17, 21", options: ["14", "17", "21", "3"], answer: "14" },
+            { subject: "Reasoning", question: "रीता की ओर इशारा करते हुए, निखिल ने कहा, 'मैं उसकी माँ के पुत्र का इकलौता पुत्र हूँ।' रीता, निखिल से किस प्रकार संबंधित है?", options: ["बुआ", "भतीजी", "माँ", "चचेरी बहन"], answer: "बुआ" },
+            { subject: "Reasoning", question: "यदि किसी महीने की 10 तारीख को रविवार है, तो उसी महीने की 22 तारीख को कौन सा दिन होगा?", options: ["गुरुवार", "शुक्रवार", "शनिवार", "रविवार"], answer: "शुक्रवार" },
+            { subject: "Reasoning", question: "थर्मामीटर : तापमान :: बैरोमीटर : ?", options: ["दबाव", "ऊंचाई", "आर्द्रता", "वर्षा"], answer: "दबाव" },
+            
+            // 86. General Awareness & Current Affairs
+            { subject: "General Awareness", question: "विश्व में संयुक्त राष्ट्र दिवस कब मनाया जाता है?", options: ["20 अक्टूबर", "24 अक्टूबर", "27 नवंबर", "30 नवंबर"], answer: "24 अक्टूबर" },
+            { subject: "General Awareness", question: "अंतर्राष्ट्रीय न्यायालय कहाँ स्थित है?", options: ["जिनेवा", "द हेग", "एम्सटर्डम", "वियना"], answer: "द हेग" },
+            { subject: "General Awareness", question: "विश्व प्रसिद्ध 'खजुराहो' मूर्तिकलाएँ स्थित हैं:", options: ["गुजरात में", "मध्य प्रदेश में", "ओडिशा में", "महाराष्ट्र में"], answer: "मध्य प्रदेश में" },
+            { subject: "General Awareness", question: "क्षेत्रफल की दृष्टि से भारत का निम्न में से कौन-सा राज्य सबसे छोटा है?", options: ["सिक्किम", "गोवा", "मेघालय", "मिजोरम"], answer: "गोवा" },
+            { subject: "General Awareness", question: "राज्यसभा के चुने हुए सदस्यों का कार्यकाल कितने वर्ष का होता है?", options: ["2 वर्ष", "4 वर्ष", "6 वर्ष", "8 वर्ष"], answer: "6 वर्ष" },
+            { subject: "General Awareness", question: "'ओणम' किस भारतीय राज्य/केंद्र शासित प्रदेश का सांस्कृतिक उत्सव है?", options: ["असम", "केरल", "तमिलनाडु", "कर्नाटक"], answer: "केरल" },
+            { subject: "General Awareness", question: "सूर्य के सबसे नजदीक ग्रह है:", options: ["पृथ्वी", "चंद्रमा", "शुक्र", "बुध"], answer: "बुध" },
+            { subject: "General Awareness", question: "नोबेल पुरस्कार जीतने वाले प्रथम एशियाई कौन थे?", options: ["सी. वी. रमन", "राजीव गांधी", "रवींद्रनाथ टैगोर", "मदर टेरेसा"], answer: "रवींद्रनाथ टैगोर" },
+            { subject: "General Awareness", question: "भारत के कितने राज्य नेपाल के साथ सीमा साझा करते हैं?", options: ["पाँच", "चार", "तीन", "दो"], answer: "पाँच" },
+            { subject: "General Awareness", question: "हंगरी की राष्ट्रीय मुद्रा क्या है?", options: ["हंगेरियन फोरिंट", "हंगेरियन नायरा", "हंगेरियन पाउंड", "इनमें से कोई नहीं"], answer: "हंगेरियन फोरिंट" },
+            { subject: "General Awareness", question: "भारत की संसद का नाम क्या है?", options: ["लोकसभा", "राज्यसभा", "संसद", "विधान सभा"], answer: "संसद" },
+            { subject: "General Awareness", question: "'डिस्कवरी ऑफ इंडिया' पुस्तक किसने लिखी है?", options: ["महात्मा गांधी", "जवाहरलाल नेहरू", "सरदार पटेल", "इंदिरा गांधी"], answer: "जवाहरलाल नेहरू" },
+            { subject: "General Awareness", question: "भारत का 'संविधान दिवस' कब मनाया जाता है?", options: ["26 जनवरी", "15 अगस्त", "26 नवंबर", "2 अक्टूबर"], answer: "26 नवंबर" },
+            { subject: "General Awareness", question: "सार्क (SAARC) का मुख्यालय कहाँ है?", options: ["नई दिल्ली", "ढाका", "काठमांडू", "इस्लामाबाद"], answer: "काठमांडू" },
+            { subject: "General Awareness", question: "'उगते सूरज का देश' किसे कहा जाता है?", options: ["नॉर्वे", "जापान", "चीन", "फिनलैंड"], answer: "जापान" }
+        ];
+
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let timerInterval;
+
+        function startTimer(durationInSeconds) {
+            let timer = durationInSeconds;
+            timerInterval = setInterval(() => {
+                let hours = Math.floor(timer / 3600);
+                let minutes = Math.floor((timer % 3600) / 60);
+                let seconds = timer % 60;
+
+                hours = hours < 10 ? "0" + hours : hours;
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                elements.timer.textContent = `${hours}:${minutes}:${seconds}`;
+                timer--;
+                
+                if (timer < 600) { // 10 minutes warning
+                    elements.timerContainer.classList.add('warning');
+                }
+
+                if (timer < 0) {
+                    clearInterval(timerInterval);
+                    showResults();
+                }
+            }, 1000);
+        }
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            if(timerInterval) clearInterval(timerInterval);
+            elements.resultsContainer.classList.add('hidden');
+            elements.quizContent.classList.remove('hidden');
+            elements.nextBtn.textContent = 'अगला प्रश्न';
+            elements.nextBtn.classList.add('hidden');
+            elements.timerContainer.classList.remove('warning');
+            showQuestion();
+            startTimer(120 * 60); // 120 minutes
+        }
+        
+        function showQuestion() {
+            resetState();
+            const currentQuestion = quizQuestions[currentQuestionIndex];
+            elements.questionText.textContent = currentQuestion.question;
+            elements.questionCounter.textContent = `प्रश्न ${currentQuestionIndex + 1} / ${quizQuestions.length}`;
+            elements.progressBar.style.width = `${((currentQuestionIndex + 1) / quizQuestions.length) * 100}%`;
+
+            const shuffledOptions = [...currentQuestion.options].sort(() => Math.random() - 0.5);
+
+            shuffledOptions.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('option-btn');
+                button.addEventListener('click', () => selectAnswer(button, option, currentQuestion.answer));
+                elements.optionsContainer.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            elements.nextBtn.classList.add('hidden');
+            while (elements.optionsContainer.firstChild) {
+                elements.optionsContainer.removeChild(elements.optionsContainer.firstChild);
+            }
+        }
+
+        function selectAnswer(selectedBtn, selectedOption, correctAnswer) {
+            if (selectedOption === correctAnswer) {
+                score++;
+                selectedBtn.classList.add('correct');
+            } else {
+                score -= 0.25;
+                selectedBtn.classList.add('incorrect');
+            }
+            
+            Array.from(elements.optionsContainer.children).forEach(button => {
+                if (button.textContent === correctAnswer) {
+                    button.classList.add('correct');
+                }
+                button.disabled = true;
+            });
+
+            if(currentQuestionIndex === quizQuestions.length - 1) {
+                elements.nextBtn.textContent = 'परिणाम देखें';
+            }
+            elements.nextBtn.classList.remove('hidden');
+        }
+
+        function showResults() {
+            clearInterval(timerInterval);
+            elements.quizContent.classList.add('hidden');
+            elements.resultsContainer.classList.remove('hidden');
+            const finalScore = Math.max(0, score); 
+            elements.scoreText.textContent = `आपने ${quizQuestions.length} में से ${finalScore.toFixed(2)} अंक प्राप्त किए।`;
+        }
+        
+        elements.startQuizBtn.addEventListener('click', () => {
+            elements.examInfoContainer.classList.add('hidden');
+            startQuiz();
+        });
+
+        elements.nextBtn.addEventListener('click', () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizQuestions.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        });
+
+        elements.retryBtn.addEventListener('click', startQuiz);
+    });
+    </script>
+</body>
+</html>
