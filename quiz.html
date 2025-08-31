@@ -397,7 +397,16 @@
             { subject: "General Awareness", question: "'उगते सूरज का देश' किसे कहा जाता है?", options: ["नॉर्वे", "जापान", "चीन", "फिनलैंड"], answer: "जापान" }
         ];
 
+// ⬇️ AFTER this add shuffle function
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
 
+        
         let currentQuestionIndex = 0;
         let score = 0;
         let timerInterval;
@@ -433,6 +442,9 @@
             if(timerInterval) clearInterval(timerInterval);
             elements.resultsContainer.classList.add('hidden');
             elements.quizContent.classList.remove('hidden');
+            // ⬇️ BEFORE calling startQuiz, shuffle lagao
+    questions = shuffleArray([...quizQuestions]);
+            
             elements.nextBtn.textContent = 'अगला प्रश्न';
             elements.nextBtn.classList.add('hidden');
             elements.timerContainer.classList.remove('warning');
@@ -442,10 +454,10 @@
         
         function showQuestion() {
             resetState();
-            const currentQuestion = quizQuestions[currentQuestionIndex];
+            const currentQuestion = questions[currentQuestionIndex];
             elements.questionText.textContent = currentQuestion.question;
-            elements.questionCounter.textContent = `प्रश्न ${currentQuestionIndex + 1} / ${quizQuestions.length}`;
-            elements.progressBar.style.width = `${((currentQuestionIndex + 1) / quizQuestions.length) * 100}%`;
+            elements.questionCounter.textContent = `प्रश्न ${currentQuestionIndex + 1} / ${questions.length}`;
+            elements.progressBar.style.width = `${((currentQuestionIndex + 1) / questions.length) * 100}%`;
 
             const shuffledOptions = [...currentQuestion.options].sort(() => Math.random() - 0.5);
 
