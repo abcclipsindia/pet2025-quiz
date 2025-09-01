@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>UPSSSC PET 2025 — Mock Test (100 प्रश्न) — Final</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Teko:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --insta-gradient: linear-gradient(45deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+  --primary:#d62976; --secondary:#2c3e50; --light:#fff; --bg:#fafafa; --gray:#dbdbdb; --dark:#333;
+  --correct:#2ecc71; --incorrect:#e74c3c; --timer:#3498db; --radius:15px; --shadow:0 6px 20px rgba(0,0,0,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--dark);display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+.wrapper{width:100%;max-width:980px;background:var(--light);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+header{background:var(--insta-gradient);padding:26px;text-align:center}
+.header-title{font-family:'Teko',sans-serif;color:#fff;font-size:2rem;letter-spacing:1px}
+main{padding:24px}
+/* info */
+.info h2{font-family:'Teko',sans-serif;color:var(--secondary);font-size:1.4rem;margin-bottom:12px;border-bottom:2px solid var(--primary);padding-bottom:8px;text-align:center}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:12px 0}
+.meta .card{background:#f8f9fa;border-left:4px solid var(--primary);padding:10px;border-radius:6px}
+/* start */
+.start-wrap{text-align:center;margin-top:14px}
+.btn{background:var(--insta-gradient);border:none;color:var(--light);padding:12px 36px;border-radius:999px;font-weight:700;cursor:pointer;box-shadow:0 6px 18px rgba(214,41,118,.25);transition:transform .18s}
+.btn:hover{transform:translateY(-3px)}
+/* quiz */
+.quiz{display:none}
+.qhead{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap}
+.progress{flex:1;height:10px;background:#e8eaef;border-radius:10px;overflow:hidden;margin-right:12px}
+.progress-bar{height:100%;width:0;background:var(--insta-gradient);transition:width .35s}
+.timer{font-weight:700;color:var(--secondary);background:#eef7ff;padding:6px 12px;border-radius:999px;white-space:nowrap}
+.timer.warning{background:#fff0f0;color:var(--incorrect)}
+.qcount{text-align:center;color:#666;margin:10px 0;font-weight:600}
+.card-q{background:#fff;border-radius:12px;padding:18px;border:1px solid #eef0f4;box-shadow:0 6px 16px rgba(23,26,31,.03)}
+.question-text{font-size:1.12rem;font-weight:700;color:var(--secondary);text-align:left;margin-bottom:12px}
+.context {background:#f6f8fb;border-radius:8px;padding:12px;margin-bottom:12px;border-left:4px solid #d6d6d6}
+.context h4{margin-bottom:6px;font-size:1rem}
+.options{display:flex;flex-direction:column;gap:10px}
+.opt-btn{border:2px solid var(--gray);background:#fff;padding:12px 14px;border-radius:10px;text-align:left;cursor:pointer;font-size:1rem;transition:background .18s,border-color .18s,transform .06s}
+.opt-btn:hover:not(:disabled){background:#fceef5;border-color:var(--primary)}
+.opt-btn.correct{background:#eafaf1;border-color:var(--correct);color:#206b45;font-weight:700}
+.opt-btn.incorrect{background:#fbe9e7;border-color:var(--incorrect);color:#a62b22;font-weight:700}
+.opt-btn:disabled{cursor:not-allowed;opacity:.95}
+.nav{display:flex;justify-content:center;margin-top:18px}
+.next-btn{background:var(--primary);color:#fff;border:none;padding:10px 30px;border-radius:999px;font-weight:700;cursor:pointer;box-shadow:0 6px 18px rgba(214,41,118,.24)}
+.next-btn.hidden{display:none}
+/* results */
+.results{display:none;text-align:center;padding:26px}
+.results h2{font-family:'Teko',sans-serif;color:var(--secondary);font-size:1.6rem;margin-bottom:10px}
+.score{font-size:1.2rem;color:var(--primary);font-weight:700;margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:10px 0}
+.chip{background:#fff;border:1px solid #e6e9ee;padding:6px 10px;border-radius:999px}
+
+/* responsive */
+@media (max-width:640px){
+  .header-title{font-size:1.4rem}
+  body{padding:0}
+  .wrapper{border-radius:0;min-height:100vh}
+  main{padding:18px}
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <header><div class="header-title">UPSSSC PET 2025 — Mock Test 2</div></header>
+  <main>
+    <section class="info" id="info">
+      <h2>परीक्षा पैटर्न और निर्देश</h2>
+      <div class="meta">
+        <div class="card"><strong>कुल प्रश्न:</strong> 100</div>
+        <div class="card"><strong>कुल अंक:</strong> 100</div>
+        <div class="card"><strong>अवधि:</strong> 2 घंटे (120 मिनट)</div>
+        <div class="card"><strong>निगेटिव:</strong> -0.25 प्रति गलत उत्तर</div>
+      </div>
+      <div class="start-wrap">
+        <button class="btn" id="startBtn">मॉक टेस्ट शुरू करें</button>
+      </div>
+    </section>
+
+    <section class="quiz" id="quiz">
+      <div class="qhead">
+        <div class="progress"><div id="progressBar" class="progress-bar"></div></div>
+        <div id="timer" class="timer">02:00:00</div>
+      </div>
+      <p id="qcount" class="qcount"></p>
+      <div class="card-q">
+        <div id="contextBox" class="context hidden"></div>
+        <div id="questionText" class="question-text"></div>
+        <div id="optionsBox" class="options"></div>
+      </div>
+      <div class="nav">
+        <button id="nextBtn" class="next-btn hidden">अगला प्रश्न</button>
+      </div>
+    </section>
+
+    <section class="results" id="results">
+      <h2>टेस्ट पूरा हुआ!</h2>
+      <div id="scoreText" class="score"></div>
+      <div id="breakup" class="chips"></div>
+      <div style="display:flex;gap:10px;justify-content:center;margin-top:12px;flex-wrap:wrap">
+        <button class="btn" id="retryBtn">पुनः प्रयास करें</button>
+        <button class="btn" id="reviewBtn">रीव्यू मोड (उत्तर देखें)</button>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+// ---------------- Utilities ----------------
+function shuffleArray(arr){ const a=[...arr]; for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a; }
+function pad(n){ return n<10? '0'+n : ''+n; }
+
+// ---------------- Question Bank (passages, graphs, tables, standalone MCQs) ----------------
+
+// 2 passages (each 5 questions)
+const passages = [
+  {
+    type:'passage',
+    subject:'HindiPassage',
+    passage: `किसान प्राकृतिक संसाधनों पर निर्भर रहते हैं। वर्षा अनियमित होने पर उत्पादन प्रभावित होता है। वैकल्पिक सिंचाई, उन्नत बीज और फसल विविधीकरण से जोखिम कम किया जा सकता है। सरकार द्वारा बीमा योजनाओं और प्रशिक्षण से किसानों की क्षमता भी बढ़ती है।`,
+    qs: [
+      {q:"किस कारण किसानों की उपज प्रभावित होती है?", options:["वर्षा का अनियमित होना","शहरों का विकास","विद्युत कटौती","खाद की कमी"], a:"वर्षा का अनियमित होना"},
+      {q:"जोखिम कम करने के लिए कौन-सा उपाय बताया गया है?", options:["फसल विविधीकरण","केवल एक फसल लगाना","उद्योग वृद्धि","नौकरियां बढ़ाना"], a:"फसल विविधीकरण"},
+      {q:"सरकार किसानों की क्षमता किसके जरिए बढ़ाती है?", options:["बीमा योजनाओं और प्रशिक्षण","कर बढ़ाकर","निर्यात बंद कर","क़र्ज माफ़ कर"], a:"बीमा योजनाओं और प्रशिक्षण"},
+      {q:"वैकल्पिक सिंचाई का अर्थ क्या है?", options:["अन्य जल स्रोतों का उपयोग","केवल वर्षा पर निर्भरता","नहरें बंद करना","बारिश में वृद्धि"], a:"अन्य जल स्रोतों का उपयोग"},
+      {q:"पैरा का मुख्य संदेश क्या है?", options:["किसानों के जोखिम प्रबंधन के उपाय","पर्यटन विकास","नौकरी सृजन","शहरीकरण"], a:"किसानों के जोखिम प्रबंधन के उपाय"}
+    ]
+  },
+  {
+    type:'passage',
+    subject:'HindiPassage',
+    passage: `स्वास्थ्य के लिए संतुलित आहार, नियमित व्यायाम और पर्याप्त नींद आवश्यक हैं। प्रसंस्कृत खाद्य पदार्थों के अधिक सेवन से स्वास्थ्य पर प्रतिकूल प्रभाव पड़ता है। समुदाय स्तर पर जागरूकता और प्राथमिक देखभाल से स्वास्थ्य बेहतर होता है।`,
+    qs: [
+      {q:"स्वास्थ्य के लिए क्या आवश्यक है?", options:["संतुलित आहार, व्यायाम और पर्याप्त नींद","केवल व्यायाम","केवल दवाइयाँ","अधिक प्रसंस्कृत भोजन"], a:"संतुलित आहार, व्यायाम और पर्याप्त नींद"},
+      {q:"प्रसंस्कृत भोजन के अधिक सेवन से क्या होता है?", options:["स्वास्थ्य पर प्रतिकूल प्रभाव","ऊर्जा वृद्धि","बेहतर पाचन","नींद बढ़ती है"], a:"स्वास्थ्य पर प्रतिकूल प्रभाव"},
+      {q:"समुदाय स्तर पर क्या स्वास्थ्य सुधारता है?", options:["जागरूकता और प्राथमिक देखभाल","केवल अस्पताल","केवल दवाइयाँ","निर्यात बढ़ाने से"], a:"जागरूकता और प्राथमिक देखभाल"},
+      {q:"पर्याप्त नींद का क्या लाभ है?", options:["स्वास्थ्य में सुधार","तनाव बढ़ना","ऊर्जा घटाना","रोग बढ़ना"], a:"स्वास्थ्य में सुधार"},
+      {q:"इस पैरा का मुख्य संदेश क्या है?", options:["स्व-देखभाल और जागरूकता","बचत पर जोर","यात्रा की वकालत","कृषि विकास"], a:"स्व-देखभाल और जागरूकता"}
+    ]
+  }
+];
+
+// 2 graphs (each 5 qs)
+const graphs = [
+  {
+    type:'graph',
+    subject:'Graphs',
+    note: 'ग्राफ (वर्षवार): 2019:40, 2020:50, 2021:45, 2022:60, 2023:55',
+    qs: [
+      {q:"किस वर्ष मान सबसे अधिक है?", options:["2022","2020","2023","2019"], a:"2022"},
+      {q:"2019 से 2020 में परिवर्तन कितना हुआ?", options:["+10","-5","+5","+15"], a:"+10"},
+      {q:"न्यूनतम मान किस वर्ष का है?", options:["2019","2021","2020","2023"], a:"2019"},
+      {q:"2022 से 2023 परिवर्तन क्या है?", options:["-5","+5","0","+10"], a:"-5"},
+      {q:"किस वर्ष का मान 45 है?", options:["2021","2020","2019","2023"], a:"2021"}
+    ]
+  },
+  {
+    type:'graph',
+    subject:'Graphs',
+    note: 'श्रेणी मान: A=30, B=45, C=25, D=40, E=35',
+    qs: [
+      {q:"सर्वाधिक श्रेणी कौन सी है?", options:["B","D","E","A"], a:"B"},
+      {q:"30 से कम किस श्रेणी का मान है?", options:["C","A","E","D"], a:"C"},
+      {q:"A और E का योग क्या है?", options:["65","55","70","60"], a:"65"},
+      {q:"D और B का अंतर कितना है?", options:["5","10","15","20"], a:"5"},
+      {q:"मध्यमान के निकट किस श्रेणी का मान है?", options:["E","A","C","D"], a:"E"}
+    ]
+  }
+];
+
+// 2 tables (each 5 qs)
+const tables = [
+  {
+    type:'table',
+    subject:'Tables',
+    note: 'वस्तुएँ: P=120, Q=90, R=150, S=110',
+    qs: [
+      {q:"किस वस्तु का मूल्य सबसे अधिक है?", options:["R","P","S","Q"], a:"R"},
+      {q:"P + Q का योग क्या है?", options:["210","230","200","240"], a:"210"},
+      {q:"चारों का औसत कितना है?", options:["117.5","120","125","110"], a:"117.5"},
+      {q:"Q और R में कितना अंतर है?", options:["60","40","20","30"], a:"60"},
+      {q:"मूल्य 110 किस वस्तु का है?", options:["S","P","Q","R"], a:"S"}
+    ]
+  },
+  {
+    type:'table',
+    subject:'Tables',
+    note: 'उत्तीर्ण प्रतिशत: 2019=70, 2020=65, 2021=75, 2022=80',
+    qs: [
+      {q:"किस वर्ष में न्यूनतम प्रतिशत था?", options:["2020","2019","2021","2022"], a:"2020"},
+      {q:"2019 से 2022 में कुल परिवर्तन कितना है?", options:["+10","+5","+15","+8"], a:"+10"},
+      {q:"75% किस वर्ष में था?", options:["2021","2020","2019","2022"], a:"2021"},
+      {q:"औसत के निकट वर्ष कौन सा है?", options:["2019","2021","2020","2022"], a:"2019"},
+      {q:"2022 और 2020 का अंतर कितना है?", options:["15","10","5","20"], a:"15"}
+    ]
+  }
+];
+
+// Standalone MCQs — enough to make total 100 (we will fill exactly)
+const standaloneMCQs = [
+  /* History 5 */
+  {subject:"History", q:"लोथल किस प्रकार के लिए प्रसिद्ध था?", options:["बंदरगाह/गोदी","कपड़ा उद्योग","लोहे का शिल्प","धार्मिक स्थल"], a:"बंदरगाह/गोदी"},
+  {subject:"History", q:"गौतम बुद्ध का जन्मस्थान कहाँ माना जाता है?", options:["लुम्बिनी","बोधगया","वाराणसी","कुशीनगर"], a:"लुम्बिनी"},
+  {subject:"History", q:"खजुराहो के मंदिर किस राजवंश के हैं?", options:["चंदेल","चालुक्य","सोलंकी","प्रतिहार"], a:"चंदेल"},
+  {subject:"History", q:"चरक संहिता किस क्षेत्र से संबंधित है?", options:["चिकित्सा","वास्तुशास्त्र","साहित्य","गणित"], a:"चिकित्सा"},
+  {subject:"History", q:"मेगस्थनीज ने किस काल का वर्णन किया?", options:["मौर्यकाल","गुप्तकाल","मुगलकाल","सातवाहन काल"], a:"मौर्यकाल"},
+
+  /* INM 5 */
+  {subject:"INM", q:"दांडी मार्च किस वर्ष हुआ था?", options:["1930","1920","1942","1919"], a:"1930"},
+  {subject:"INM", q:"नमक सत्याग्रह का नेतृत्व किसने किया था?", options:["महात्मा गांधी","सुभाष चंद्र बोस","बाल गंगाधर तिलक","सरोजिनी नायडू"], a:"महात्मा गांधी"},
+  {subject:"INM", q:"भारत छोड़ो आंदोलन कब आरंभ हुआ था?", options:["1942","1930","1935","1940"], a:"1942"},
+  {subject:"INM", q:"फॉरवर्ड ब्लॉक की स्थापना किसने की?", options:["सुभाष चन्द्र बोस","नेहरू","सरदार पटेल","महात्मा गांधी"], a:"सुभाष चन्द्र बोस"},
+  {subject:"INM", q:"1857 के समय गवर्नर जनरल कौन थे?", options:["लॉर्ड कैनिंग","लॉर्ड डलहौजी","लॉर्ड रिपन","लॉर्ड मिंटो"], a:"लॉर्ड कैनिंग"},
+
+  /* Geography 7 */
+  {subject:"Geography", q:"भारत की मानक समय रेखा किस देशांतर पर है?", options:["82.5°E","80°E","85°E","90°E"], a:"82.5°E"},
+  {subject:"Geography", q:"काजीरंगा किस राज्य में है?", options:["असम","मध्य प्रदेश","ओडिशा","झारखंड"], a:"असम"},
+  {subject:"Geography", q:"शिफ्टिंग खेती को किस नाम से जाना जाता है?", options:["झूम","पोडू","बेवर","कुमारी"], a:"झूम"},
+  {subject:"Geography", q:"नागार्जुन सागर किस नदी पर है?", options:["कृष्णा","गोदावरी","कावेरी","नर्मदा"], a:"कृष्णा"},
+  {subject:"Geography", q:"सौरमंडल का सबसे बड़ा ग्रह कौन सा है?", options:["बृहस्पति","शनि","पृथ्वी","मंगल"], a:"बृहस्पति"},
+  {subject:"Geography", q:"नर्मदा नदी किस दिशा में बहती है?", options:["पश्चिम","पूर्व","उत्तर","दक्षिण"], a:"पश्चिम"},
+  {subject:"Geography", q:"अरावली किस दिशा में फैली है?", options:["पूर्व-उत्तर से दक्षिण-पश्चिम","उत्तर से दक्षिण","पूर्व से पश्चिम","दक्षिण से उत्तर"], a:"पूर्व-उत्तर से दक्षिण-पश्चिम"},
+
+  /* Economy 7 */
+  {subject:"Economy", q:"GST कब लागू हुआ था?", options:["1 जुलाई 2017","1 अप्रैल 2017","1 जनवरी 2017","1 सितम्बर 2017"], a:"1 जुलाई 2017"},
+  {subject:"Economy", q:"RBI का मुख्यालय कहाँ है?", options:["मुंबई","दिल्ली","चेन्नई","कोलकाता"], a:"मुंबई"},
+  {subject:"Economy", q:"श्वेत क्रांति के जनक कौन माने जाते हैं?", options:["डॉ. वर्गीज कुरियन","एम.एस. स्वामीनाथन","नॉर्मन बोरलॉग","जे.सी. कुमारप्पा"], a:"डॉ. वर्गीज कुरियन"},
+  {subject:"Economy", q:"1991 के सुधार किस PM के कार्यकाल में?", options:["पी. वी. नरसिम्हा राव","अटल बिहारी वाजपेयी","मनमोहन सिंह","राजीव गांधी"], a:"पी. वी. नरसिम्हा राव"},
+  {subject:"Economy", q:"बैंकों का पहला राष्ट्रीयकरण किस वर्ष हुआ?", options:["1969","1980","1955","1975"], a:"1969"},
+  {subject:"Economy", q:"पीडीएस किसका संक्षेप है?", options:["पब्लिक डिस्ट्रीब्यूशन सिस्टम","प्राइमरी डेवलपमेंट सर्विस","पब्लिक डेटा सिस्टम","प्राइमरी डेटा सिस्टम"], a:"पब्लिक डिस्ट्रीब्यूशन सिस्टम"},
+  {subject:"Economy", q:"सेवा क्षेत्र को क्या कहा जाता है?", options:["तृतीयक क्षेत्र","प्राथमिक क्षेत्र","द्वितीयक क्षेत्र","चतुर्थक"], a:"तृतीयक क्षेत्र"},
+
+  /* Polity 6 */
+  {subject:"Polity", q:"शिक्षा का अधिकार किस अनुच्छेद से जुड़ा है?", options:["21A","19","21","14"], a:"21A"},
+  {subject:"Polity", q:"भारतीय संविधान की आत्मा किसे कहा गया है?", options:["प्रस्तावना","मौलिक अधिकार","राज्य नीति निर्देशक तत्व","न्यायपालिका"], a:"प्रस्तावना"},
+  {subject:"Polity", q:"राष्ट्रपति अपना त्यागपत्र किसे संबोधित करते हैं?", options:["उपराष्ट्रपति","प्रधानमंत्री","लोकसभा अध्यक्ष","सीजेआई"], a:"उपराष्ट्रपति"},
+  {subject:"Polity", q:"जिला प्रशासन का प्रमुख कौन होता है?", options:["जिलाधिकारी","पुलिस अधीक्षक","मुख्य विकास अधिकारी","जिला जज"], a:"जिलाधिकारी"},
+  {subject:"Polity", q:"राज्यपाल किसके द्वारा नियुक्त होता है?", options:["राष्ट्रपति","प्रधानमंत्री","मुख्यमंत्री","लोकसभा"], a:"राष्ट्रपति"},
+  {subject:"Polity", q:"मौलिक अधिकार संविधान के किस भाग में हैं?", options:["भाग-III","भाग-II","भाग-IV","भाग-V"], a:"भाग-III"},
+
+  /* Science 6 */
+  {subject:"Science", q:"पेनिसिलिन किससे प्राप्त होता है?", options:["कवक (Fungus)","बैक्टीरिया","वायरस","शैवाल"], a:"कवक (Fungus)"},
+  {subject:"Science", q:"एक हॉर्सपावर लगभग कितने वॉट के बराबर है?", options:["746 वॉट","500 वॉट","1000 वॉट","650 वॉट"], a:"746 वॉट"},
+  {subject:"Science", q:"पेट में किस अम्ल का कार्य प्रमुख है?", options:["हाइड्रोक्लोरिक एसिड","सल्फ्यूरिक एसिड","नाइट्रिक एसिड","एसिटिक एसिड"], a:"हाइड्रोक्लोरिक एसिड"},
+  {subject:"Science", q:"फोटोसिंथेसिस मुख्यत: किस अंग में होता है?", options:["पत्ती","जड़","तना","बीज"], a:"पत्ती"},
+  {subject:"Science", q:"फ्यूज़ के तार में कौन-सा मिश्रधातु प्रयोग होता है?", options:["टिन और सीसा","टिन और तांबा","टिन और अल्यूमीनियम","निकेल और क्रोमियम"], a:"टिन और सीसा"},
+  {subject:"Science", q:"DNA के संरचनात्मक मॉडल के प्रमुख शोधकर्ता कौन थे?", options:["वॉटसन और क्रीक","मेन्डल","फ्लेमिंग","रदरफोर्ड"], a:"वॉटसन और क्रीक"},
+
+  /* Arithmetic 8 */
+  {subject:"Arithmetic", q:"0.0081 का वर्गमूल क्या है?", options:["0.09","0.9","0.009","0.0009"], a:"0.09"},
+  {subject:"Arithmetic", q:"यदि A की आय B से 20% अधिक है, तो B की आय A से कितने प्रतिशत कम है?", options:["16.66%","20%","25%","12.5%"], a:"16.66%"},
+  {subject:"Arithmetic", q:"37 1/2 में कुल कितने 1/8 होते हैं?", options:["300","400","250","500"], a:"300"},
+  {subject:"Arithmetic", q:"(√5 - √3)/(√5 + √3) = ?", options:["4 - √15","√15 - 4","1","4 + √15"], a:"4 - √15"},
+  {subject:"Arithmetic", q:"४% वृद्धि और 0.5% कमी के साथ, 3 वर्षों में कुल वृद्धि (लगभग) क्या होगी?", options:["10.8%","9.8%","11.2%","10.5%"], a:"10.8%"},
+  {subject:"Arithmetic", q:"885^3 + 115^3 / (885^2 + 115^2 - 885*115) का मान (संसूचित) क्या है?", options:["1000","770","885","1"], a:"1000"},
+  {subject:"Arithmetic", q:"यदि कीमत 30% घटे और बिक्री 20% बढ़े तो लाभ पर क्या असर होगा?", options:["16% कमी","10% वृद्धि","10% कमी","16% वृद्धि"], a:"16% कमी"},
+  {subject:"Arithmetic", q:"चार खिलाड़ियों की औसत आयु 18.5 है। कोच जोड़ने पर औसत 20% बढ़ती है; कोच की उम्र क्या है?", options:["37 वर्ष","34 वर्ष","28 वर्ष","31 वर्ष"], a:"37 वर्ष"},
+
+  /* Hindi 5 */
+  {subject:"Hindi", q:"'एकल' का विलोम शब्द क्या है?", options:["बहुल","अकेला","पर्याप्त","उपयुक्त"], a:"बहुल"},
+  {subject:"Hindi", q:"'दर्प' का पर्यायवाची शब्द कौन-सा है?", options:["अहंकार","स्वाभिमान","व्यथा","तिरस्कार"], a:"अहंकार"},
+  {subject:"Hindi", q:"'गागर में सागर भरना' मुहावरे का अर्थ क्या है?", options:["थोड़े में बहुत कहना","बहुत बोलना","कम बोलना","हिसाब रखना"], a:"थोड़े में बहुत कहना"},
+  {subject:"Hindi", q:"'महत्वाकांक्षा' की शुद्ध वर्तनी चुनिए:", options:["महत्वाकांक्षा","महत्वकांक्षा","महत्वकांछा","महत्वाकांश"], a:"महत्वाकांक्षा"},
+  {subject:"Hindi", q:"'दूध का दूध और पानी का पानी करना' मुहावरे का अर्थ क्या है?", options:["उचित निर्णय करना","मिल-जुल कर रहना","पक्षपात करना","बेवकूफी"], a:"उचित निर्णय करना"},
+
+  /* English 3 */
+  {subject:"English", q:"Synonym of 'Famous' is:", options:["Popular","Poor","Steady","Awful"], a:"Popular"},
+  {subject:"English", q:"Antonym of 'Transparent' is:", options:["Opaque","Clear","Obvious","Limpid"], a:"Opaque"},
+  {subject:"English", q:"Which is correctly spelled?", options:["Intelligence","Inteligence","Intilligence","Intellegence"], a:"Intelligence"},
+
+  /* Reasoning 4 */
+  {subject:"Reasoning", q:"कुत्ता:रेबीज :: मच्छर: ?", options:["मलेरिया","प्लेग","डेंगू","टायफस"], a:"मलेरिया"},
+  {subject:"Reasoning", q:"विषम चुनिए: 3,5,11,14,17,21", options:["14","17","21","3"], a:"14"},
+  {subject:"Reasoning", q:"यदि 18 फ़रवरी 2005 शुक्रवार था, 18 फ़रवरी 2007 कौन सा दिन होगा?", options:["रविवार","शनिवार","सोमवार","मंगलवार"], a:"रविवार"},
+  {subject:"Reasoning", q:"थर्मामीटर:तापमान :: बैरोमीटर : ?", options:["दबाव","ऊँचाई","आर्द्रता","वर्षा"], a:"दबाव"},
+
+  /* Current / Awareness 10 */
+  {subject:"Current", q:"संयुक्त राष्ट्र दिवस कब मनाया जाता है?", options:["24 अक्टूबर","20 अक्टूबर","27 नवंबर","30 नवंबर"], a:"24 अक्टूबर"},
+  {subject:"Current", q:"अंतर्राष्ट्रीय न्यायालय कहाँ स्थित है?", options:["द हेग","जिनेवा","वियना","न्यूयॉर्क"], a:"द हेग"},
+  {subject:"Current", q:"'डिस्कवरी ऑफ इंडिया' के लेखक कौन हैं?", options:["जवाहरलाल नेहरू","महात्मा गांधी","सरदार पटेल","इंदिरा गांधी"], a:"जवाहरलाल नेहरू"},
+  {subject:"Current", q:"नोबेल पुरस्कार जीतने वाले प्रथम एशियाई कौन थे?", options:["रवींद्रनाथ टैगोर","सी.वी. रमन","मदर टेरेसा","अमर्त्य सेन"], a:"रवींद्रनाथ टैगोर"},
+  {subject:"Current", q:"सार्क का मुख्यालय कौन से शहर में है?", options:["काठमांडू","ढाका","नई दिल्ली","इस्लामाबाद"], a:"काठमांडू"},
+  {subject:"Current", q:"भारत की संसद के कितने अंग हैं?", options:["तीन","दो","चार","एक"], a:"तीन"},
+  {subject:"Current", q:"भारत में संविधान दिवस किस दिन मनाया जाता है?", options:["26 नवंबर","26 जनवरी","15 अगस्त","2 अक्टूबर"], a:"26 नवंबर"},
+  {subject:"Current", q:"ISRO का मुख्यालय कहाँ है?", options:["बेंगलुरु","चेन्नई","हैदराबाद","दिल्ली"], a:"बेंगलुरु"},
+  {subject:"Current", q:"भारत के कितने राज्य नेपाल से सीमा साझा करते हैं?", options:["5","4","3","2"], a:"5"},
+  {subject:"Current", q:"खजुराहो मूर्तिकला किस राज्य में स्थित है?", options:["मध्य प्रदेश","गुजरात","ओडिशा","महाराष्ट्र"], a:"मध्य प्रदेश"}
+];
+
+// ------------------------------------------------------------------
+// Build flatQuestions (passages + graphs + tables + standalone) to reach exactly 100
+let flatQuestions = [];
+
+// push passage qs (2*5 = 10)
+passages.forEach(p=>{
+  p.qs.forEach(item=>{
+    flatQuestions.push({
+      type:'passage-question',
+      subject:p.subject,
+      context:p.passage,
+      q:item.q,
+      options:item.options.slice(),
+      a:item.a
+    });
+  });
+});
+
+// push graph qs (2*5 = 10)
+graphs.forEach(g=>{
+  g.qs.forEach(item=>{
+    flatQuestions.push({
+      type:'graph-question',
+      subject:g.subject,
+      context:g.note,
+      q:item.q,
+      options:item.options.slice(),
+      a:item.a
+    });
+  });
+});
+
+// push table qs (2*5 = 10)
+tables.forEach(t=>{
+  t.qs.forEach(item=>{
+    flatQuestions.push({
+      type:'table-question',
+      subject:t.subject,
+      context:t.note,
+      q:item.q,
+      options:item.options.slice(),
+      a:item.a
+    });
+  });
+});
+
+// Now we have 30 items from blocks, need 70 standalone to make 100
+const stand = shuffleArray(standaloneMCQs.slice());
+let needed = 100 - flatQuestions.length;
+for(let i=0;i<needed;i++){
+  const s = stand[i % stand.length];
+  flatQuestions.push({
+    type:'mcq',
+    subject:s.subject,
+    q:s.q,
+    options:s.options.slice(),
+    a:s.a
+  });
+}
+
+// Finally shuffle entire paper so order is random
+flatQuestions = shuffleArray(flatQuestions);
+
+// ---------------- App State & DOM refs ----------------
+const startBtn = document.getElementById('startBtn');
+const quizSection = document.getElementById('quiz');
+const infoSection = document.getElementById('info');
+const resultsSection = document.getElementById('results');
+const contextBox = document.getElementById('contextBox');
+const questionText = document.getElementById('questionText');
+const optionsBox = document.getElementById('optionsBox');
+const qcount = document.getElementById('qcount');
+const progressBar = document.getElementById('progressBar');
+const timerEl = document.getElementById('timer');
+const nextBtn = document.getElementById('nextBtn');
+const scoreText = document.getElementById('scoreText');
+const breakup = document.getElementById('breakup');
+const retryBtn = document.getElementById('retryBtn');
+const reviewBtn = document.getElementById('reviewBtn');
+
+let questions = []; // will contain the exam paper
+let currentIndex = 0;
+let score = 0;
+let negCount = 0;
+let timerInterval = null;
+let reviewMode = false;
+
+// Start test
+startBtn.addEventListener('click', ()=>{
+  infoSection.style.display = 'none';
+  quizSection.style.display = 'block';
+  questions = shuffleArray(flatQuestions.slice());
+  currentIndex = 0;
+  score = 0;
+  negCount = 0;
+  reviewMode = false;
+  progressBar.style.width = '0%';
+  startTimer(120*60); // 2 hours
+  renderQuestion();
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+// Timer functions
+function startTimer(seconds){
+  clearInterval(timerInterval);
+  let t = seconds;
+  updateTimerDisplay(t);
+  timerInterval = setInterval(()=>{
+    t--;
+    updateTimerDisplay(t);
+    if(t <= 600) timerEl.classList.add('warning');
+    if(t < 0){
+      clearInterval(timerInterval);
+      finishTest();
+    }
+  },1000);
+}
+function updateTimerDisplay(t){
+  if(t<0) t=0;
+  const h=Math.floor(t/3600), m=Math.floor((t%3600)/60), s=t%60;
+  timerEl.textContent = `${pad(h)}:${pad(m)}:${pad(s)}`;
+}
+
+// Render question (handles context if any)
+function renderQuestion(){
+  const item = questions[currentIndex];
+  if(!item){ finishTest(); return; }
+  // show context if passage/graph/table
+  if(item.type === 'passage-question' || item.type === 'graph-question' || item.type === 'table-question'){
+    contextBox.classList.remove('hidden');
+    contextBox.innerHTML = `<h4>संदर्भ:</h4><div style="white-space:pre-wrap">${item.context}</div>`;
+  } else {
+    contextBox.classList.add('hidden');
+    contextBox.innerHTML = '';
+  }
+  questionText.textContent = item.q;
+  qcount.textContent = `प्रश्न ${currentIndex+1} / ${questions.length} • ${item.subject || ''}`;
+  progressBar.style.width = `${((currentIndex)/questions.length)*100}%`;
+  optionsBox.innerHTML = '';
+  const opts = shuffleArray(item.options.slice());
+  opts.forEach(opt=>{
+    const b = document.createElement('button');
+    b.className = 'opt-btn';
+    b.textContent = opt;
+    b.addEventListener('click', ()=> selectAnswer(b,opt,item.a));
+    optionsBox.appendChild(b);
+  });
+  nextBtn.classList.add('hidden');
+}
+
+// Select answer
+function selectAnswer(button, picked, correct){
+  if(reviewMode) return;
+  const btns = Array.from(optionsBox.children);
+  btns.forEach(b=> b.disabled = true);
+  if(picked === correct){
+    score += 1;
+    button.classList.add('correct');
+  } else {
+    score -= 0.25;
+    negCount++;
+    button.classList.add('incorrect');
+  }
+  btns.forEach(b=> { if(b.textContent === correct) b.classList.add('correct'); });
+  nextBtn.textContent = (currentIndex === questions.length-1) ? 'परिणाम देखें' : 'अगला प्रश्न';
+  nextBtn.classList.remove('hidden');
+}
+
+// Next question
+nextBtn.addEventListener('click', ()=>{
+  if(reviewMode){
+    currentIndex++;
+    if(currentIndex < questions.length) renderReview();
+    else finishTest();
+    return;
+  }
+  currentIndex++;
+  if(currentIndex < questions.length) renderQuestion();
+  else finishTest();
+});
+
+// Finish test
+function finishTest(){
+  clearInterval(timerInterval);
+  quizSection.style.display = 'none';
+  resultsSection.style.display = 'block';
+  const finalScore = Math.max(0, Number(score.toFixed(2)));
+  scoreText.textContent = `आपने ${questions.length} में से ${finalScore} अंक प्राप्त किए। (निगेटिव: ${(negCount*0.25).toFixed(2)})`;
+  // breakup by subject
+  breakup.innerHTML = '';
+  const bySub = {};
+  questions.forEach(q=>{
+    const s = q.subject || 'Misc';
+    bySub[s] = (bySub[s] || 0) + 1;
+  });
+  Object.keys(bySub).forEach(k=>{
+    const el = document.createElement('span'); el.className='chip'; el.textContent = `${k}: ${bySub[k]}Q`; breakup.appendChild(el);
+  });
+}
+
+// Retry
+retryBtn.addEventListener('click', ()=>{
+  resultsSection.style.display = 'none';
+  infoSection.style.display = 'block';
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+// Review
+reviewBtn.addEventListener('click', ()=>{
+  reviewMode = true;
+  resultsSection.style.display = 'none';
+  quizSection.style.display = 'block';
+  currentIndex = 0;
+  renderReview();
+});
+
+function renderReview(){
+  const item = questions[currentIndex];
+  if(!item){ finishTest(); return; }
+  if(item.type === 'passage-question' || item.type === 'graph-question' || item.type === 'table-question'){
+    contextBox.classList.remove('hidden');
+    contextBox.innerHTML = `<h4>संदर्भ:</h4><div style="white-space:pre-wrap">${item.context}</div>`;
+  } else {
+    contextBox.classList.add('hidden'); contextBox.innerHTML = '';
+  }
+  questionText.textContent = `Review: ${item.q}`;
+  qcount.textContent = `प्रश्न ${currentIndex+1} / ${questions.length} • सही उत्तर: ${item.a}`;
+  optionsBox.innerHTML = '';
+  item.options.forEach(opt=>{
+    const b = document.createElement('button');
+    b.className = 'opt-btn';
+    b.textContent = opt;
+    b.disabled = true;
+    if(opt === item.a) b.classList.add('correct');
+    optionsBox.appendChild(b);
+  });
+  nextBtn.classList.remove('hidden');
+  nextBtn.textContent = (currentIndex === questions.length-1) ? 'समाप्त' : 'अगला';
+}
+
+// End
+</script>
+</body>
+</html>
